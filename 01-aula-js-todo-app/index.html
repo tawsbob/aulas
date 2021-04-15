@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Aula de javascript</title>
+		<style>
+			.feito {
+				  text-decoration: line-through;
+			}
+
+			li button {
+				display: inline-block;
+				cursor: pointer;
+				margin:10px;
+			}
+
+		</style>
+	</head>
+	<body>
+
+
+
+		<h1>Coisa a fazer</h1>
+		
+		<input type="text" id="todo" placeholder="Digite sua tarefa" />
+		<button id="btn" >adicionar tarefa</button>
+
+		<ul id="resultado">
+			
+		</ul>
+
+		<script type="text/javascript">
+			
+			const botao = document.getElementById('btn')
+			const resultado = document.getElementById('resultado')
+
+			const lista_coisas = []
+
+
+
+			function geraStatus(status){
+				if(status){
+					return 'Feito'
+				} else {
+					return 'Falta fazer'
+				}
+			}
+
+			function gerarBTN( li ){
+				const btn = document.createElement("button")
+				btn.innerText = 'Marcar como feito'
+
+				btn.addEventListener('click', function(){
+					li.classList.add('feito')
+				})
+
+				li.appendChild(btn)
+			}
+
+			function gerarElementoHtml(tarefa){
+				 const li = document.createElement("li")
+				 li.innerHTML = 'tarefa: ' + tarefa.descricao + ' <strong>status:</strong> ' + geraStatus(tarefa.status) 
+
+
+				gerarBTN( li )
+
+				 return li
+			}
+
+			function adicionarTarefa(){
+				const descricao = document.getElementById('todo').value
+				const tarefa = { descricao: descricao, status: false }
+
+				lista_coisas.push(tarefa)
+
+				resultado.appendChild( gerarElementoHtml(tarefa) )
+			}
+
+			botao.addEventListener('click', adicionarTarefa)
+
+		</script>
+
+	</body>
+</html>
